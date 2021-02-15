@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'edu.sc.seis.launch4j' version '2.4.9'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+mainClassName = 'me.dkim19375.javafxtest.JavaFXTestMain'
+
+group 'me.dkim19375'
+version '1.0.0'
+
+sourceCompatibility = targetCompatibility = 11
+compileJava.options.encoding = 'UTF-8'
+
+javafx {
+    modules = [ 'javafx.controls' , 'javafx.fxml' ]
+}
+
+launch4j {
+    outfile = "${project.name}-${project.version}.exe"
+    mainClassName = project.mainClassName
+    copyConfigurable = []
+    jar = "../libs/${project.tasks.shadowJar.archiveName}"
+}
+
+shadowJar.finalizedBy createExe
